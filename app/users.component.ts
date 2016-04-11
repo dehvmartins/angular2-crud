@@ -1,7 +1,19 @@
 import {Component, OnInit} from 'angular2/core';
+import {UsersService} from './users.service';
 
 @Component({
-    template: '<h1>Users</h1>'
+    templateUrl: 'app/users.component.html',
+    providers: [UsersService]
 })
 
-export class UsersComponent{}
+export class UsersComponent implements OnInit{
+    users: any[];
+
+    constructor(private _service: UsersService){
+    }
+
+    ngOnInit(){
+      this._service.getUsers().subscribe(users => this.users = users);
+    }
+
+}
