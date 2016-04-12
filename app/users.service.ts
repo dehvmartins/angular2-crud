@@ -14,10 +14,18 @@ export class UsersService {
 	}
 
 	getUser(id){
-		return this._http.get(this._url + "/" + id).map(res => res.json());
+		return this._http.get(this.getBaseUrl(id)).map(res => res.json());
+	}
+
+	updateUser(user){
+		return this._http.put(this.getBaseUrl(user.id), JSON.stringify(user)).map(res => res.json());
 	}
 
 	addUser(user){
 		return this._http.post(this._url, JSON.stringify(user)).map(res => res.json());
+	}
+
+	private getBaseUrl(id){
+		return this._url + "/" + id;
 	}
 }

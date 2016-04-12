@@ -36,7 +36,14 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     }
 
     save(){
-      this._userService.addUser(this.userForm.value).subscribe(x => {this._router.navigate(['Users'])});
+      var action;
+
+      if(this.user.id)
+        action = this._userService.updateUser(this.user);
+      else
+        action = this._userService.addUser(this.user);
+
+      action.subscribe(x => {this._router.navigate(['Users'])});
     }
 
     ngOnInit(){
